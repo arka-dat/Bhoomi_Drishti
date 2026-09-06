@@ -8,12 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="ui-enhancements.css">
 </head>
 <body>
 
 <div class="app">
-
-  <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <svg class="brand-mark" viewBox="0 0 32 32" fill="none">
@@ -26,285 +25,50 @@
         <span class="brand-tag">Land Acquisition Delay Intelligence</span>
       </div>
     </div>
-
     <nav class="nav" id="nav">
-      <button class="nav-item is-active" data-view="overview">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
-        <span>Overview</span>
-      </button>
-      <button class="nav-item" data-view="projects">
-        <svg viewBox="0 0 24 24"><circle cx="4.5" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.1" fill="currentColor" stroke="none"/><path d="M9 6h11M9 12h11M9 18h11"/></svg>
-        <span>Projects</span>
-      </button>
-      <button class="nav-item" data-view="map">
-        <svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" stroke-linejoin="round"/><path d="M9 4v14M15 6v14"/></svg>
-        <span>Risk Map</span>
-      </button>
-      <button class="nav-item" data-view="alerts">
-        <svg viewBox="0 0 24 24"><path d="M6 10a6 6 0 0112 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 18.5a2 2 0 004 0"/></svg>
-        <span>Alerts</span>
-        <span class="nav-badge" id="alert-badge">0</span>
-      </button>
-      <button class="nav-item" data-view="reports">
-        <svg viewBox="0 0 24 24"><path d="M4 20V10M11 20V4M18 20v-7"/></svg>
-        <span>Reports</span>
-      </button>
-      <button class="nav-item" data-view="audit">
-        <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" stroke-linejoin="round"/></svg>
-        <span>Audit Log</span>
-      </button>
+      <button class="nav-item is-active" data-view="overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg><span>Overview</span></button>
+      <button class="nav-item" data-view="projects"><svg viewBox="0 0 24 24"><circle cx="4.5" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.1" fill="currentColor" stroke="none"/><path d="M9 6h11M9 12h11M9 18h11"/></svg><span>Projects</span></button>
+      <button class="nav-item" data-view="map"><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" stroke-linejoin="round"/><path d="M9 4v14M15 6v14"/></svg><span>Risk Map</span></button>
+      <button class="nav-item" data-view="alerts"><svg viewBox="0 0 24 24"><path d="M6 10a6 6 0 0112 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 18.5a2 2 0 004 0"/></svg><span>Alerts</span><span class="nav-badge" id="alert-badge">0</span></button>
+      <button class="nav-item" data-view="reports"><svg viewBox="0 0 24 24"><path d="M4 20V10M11 20V4M18 20v-7"/></svg><span>Reports</span></button>
+      <button class="nav-item" data-view="audit"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" stroke-linejoin="round"/></svg><span>Audit Log</span></button>
     </nav>
-
-    <div class="sidebar-foot">
-      <span class="build-tag">UI shell v0.3</span>
-      <span class="build-note">Prediction engine: pending integration</span>
-    </div>
+    <div class="sidebar-foot"><span class="build-tag">UI shell v0.3</span><span class="build-note">Prediction engine: pending integration</span></div>
   </aside>
 
-  <!-- ============ MAIN ============ -->
   <div class="main">
-
     <header class="topbar">
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       <h1 class="topbar-title" id="view-title">Overview</h1>
-
-      <div class="topbar-search">
-        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
-        <input type="text" id="global-search" placeholder="Search project ID, name or district…" autocomplete="off">
-      </div>
-
+      <div class="topbar-search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg><input type="text" id="global-search" placeholder="Search project ID, name or district…" autocomplete="off"></div>
       <div class="topbar-actions">
-        <label class="role-picker">
-          <span>Signed in as</span>
-          <select id="role-select">
-            <option value="Administrator">Administrator</option>
-            <option value="Project Manager">Project Manager</option>
-            <option value="Auditor">Auditor</option>
-          </select>
-        </label>
-        <button class="bell-btn" id="bell-btn" title="Go to alerts">
-          <svg viewBox="0 0 24 24"><path d="M6 10a6 6 0 0112 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 18.5a2 2 0 004 0"/></svg>
-          <span class="bell-dot" id="bell-dot"></span>
-        </button>
+        <label class="role-picker"><span>Signed in as</span><select id="role-select"><option value="Administrator">Administrator</option><option value="Project Manager">Project Manager</option><option value="Auditor">Auditor</option></select></label>
+        <button class="bell-btn" id="bell-btn" title="Go to alerts"><svg viewBox="0 0 24 24"><path d="M6 10a6 6 0 0112 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 18.5a2 2 0 004 0"/></svg><span class="bell-dot" id="bell-dot"></span></button>
       </div>
     </header>
 
     <main class="content">
-
-      <!-- ============ OVERVIEW ============ -->
       <section class="view is-active" data-view="overview">
-
-        <div class="hero card">
-          <svg class="ruler" viewBox="0 0 1000 34" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="0" y1="30" x2="1000" y2="30" stroke="currentColor" stroke-width="1"/>
-            <g id="ruler-ticks"></g>
-          </svg>
-          <div class="hero-body">
-            <div class="hero-copy">
-              <p class="hero-eyebrow">Portfolio pulse — as of <span id="asof-date"></span></p>
-              <h2 class="hero-headline">Every land parcel in the pipeline is being watched for the first sign of delay.</h2>
-              <p class="hero-sub">This view reads directly from the parcel-level dataset below. Swap the placeholder scoring in <code>app.js</code> for your model's live output and the numbers update everywhere automatically.</p>
-            </div>
-            <div class="hero-figure">
-              <span class="hero-figure-num" id="hero-atrisk">0</span>
-              <span class="hero-figure-label">projects flagged high or critical risk</span>
-            </div>
-          </div>
-        </div>
-
+        <div class="hero card"><svg class="ruler" viewBox="0 0 1000 34" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="30" x2="1000" y2="30" stroke="currentColor" stroke-width="1"/><g id="ruler-ticks"></g></svg><div class="hero-body"><div class="hero-copy"><p class="hero-eyebrow">Portfolio pulse — as of <span id="asof-date"></span></p><h2 class="hero-headline">Every land parcel in the pipeline is being watched for the first sign of delay.</h2><p class="hero-sub">This view reads directly from the parcel-level dataset below. Swap the placeholder scoring in <code>app.js</code> for your model's live output and the numbers update everywhere automatically.</p></div><div class="hero-figure"><span class="hero-figure-num" id="hero-atrisk">0</span><span class="hero-figure-label">projects flagged high or critical risk</span></div></div></div>
         <div class="kpi-grid" id="kpi-grid"></div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-head">
-              <h3>Average delay probability, trailing 12 months</h3>
-              <span class="card-sub">Portfolio-wide mean, mock series</span>
-            </div>
-            <div id="trend-chart" class="chart-box"></div>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h3>Where the delay comes from</h3>
-              <span class="card-sub">Aggregate contribution across all active projects</span>
-            </div>
-            <div id="driver-chart" class="chart-box"></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-head">
-            <h3>Risk by state</h3>
-            <span class="card-sub">Click a row to filter the project register</span>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table" id="state-table">
-              <thead><tr><th>State</th><th>Projects</th><th>Avg. risk score</th><th>High + critical</th><th>Trend</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
+        <div class="grid-2"><div class="card"><div class="card-head"><h3>Average delay probability, trailing 12 months</h3><span class="card-sub">Portfolio-wide mean, mock series</span></div><div id="trend-chart" class="chart-box"></div></div><div class="card"><div class="card-head"><h3>Where the delay comes from</h3><span class="card-sub">Aggregate contribution across all active projects</span></div><div id="driver-chart" class="chart-box"></div></div></div>
+        <div class="card"><div class="card-head"><h3>Risk by state</h3><span class="card-sub">Click a row to filter the project register</span></div><div class="table-wrap"><table class="data-table" id="state-table"><thead><tr><th>State</th><th>Projects</th><th>Avg. risk score</th><th>High + critical</th><th>Trend</th></tr></thead><tbody></tbody></table></div></div>
       </section>
 
-      <!-- ============ PROJECTS ============ -->
-      <section class="view" data-view="projects">
-        <div class="card filter-card">
-          <div class="filter-row">
-            <select id="filter-state"><option value="">All states</option></select>
-            <select id="filter-tier">
-              <option value="">All risk tiers</option>
-              <option value="Critical">Critical</option>
-              <option value="High">High</option>
-              <option value="Moderate">Moderate</option>
-              <option value="Low">Low</option>
-            </select>
-            <select id="filter-type"><option value="">All project types</option></select>
-            <button class="btn-ghost" id="filter-reset">Clear filters</button>
-            <span class="filter-count" id="filter-count"></span>
-          </div>
-        </div>
+      <section class="view" data-view="projects"><div class="card filter-card"><div class="filter-row"><select id="filter-state"><option value="">All states</option></select><select id="filter-tier"><option value="">All risk tiers</option><option value="Critical">Critical</option><option value="High">High</option><option value="Moderate">Moderate</option><option value="Low">Low</option></select><select id="filter-type"><option value="">All project types</option></select><button class="btn-ghost" id="filter-reset">Clear filters</button><span class="filter-count" id="filter-count"></span></div></div><div class="card"><div class="table-wrap"><table class="data-table sortable" id="projects-table"><thead><tr><th data-key="id">Parcel ID</th><th data-key="name">Project</th><th data-key="state">State</th><th data-key="district">District</th><th data-key="type">Type</th><th data-key="areaHa">Area (ha)</th><th data-key="families">Families</th><th data-key="compensationPct">Compensation</th><th data-key="riskScore">Risk score</th><th data-key="delayProbability">Delay prob.</th><th data-key="tier">Tier</th></tr></thead><tbody id="projects-tbody"></tbody></table></div></div></section>
 
-        <div class="card">
-          <div class="table-wrap">
-            <table class="data-table sortable" id="projects-table">
-              <thead>
-                <tr>
-                  <th data-key="id">Parcel ID</th>
-                  <th data-key="name">Project</th>
-                  <th data-key="state">State</th>
-                  <th data-key="district">District</th>
-                  <th data-key="type">Type</th>
-                  <th data-key="areaHa">Area (ha)</th>
-                  <th data-key="families">Families</th>
-                  <th data-key="compensationPct">Compensation</th>
-                  <th data-key="riskScore">Risk score</th>
-                  <th data-key="delayProbability">Delay prob.</th>
-                  <th data-key="tier">Tier</th>
-                </tr>
-              </thead>
-              <tbody id="projects-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <section class="view" data-view="map"><div class="card map-card"><div class="card-head"><h3>Land acquisition risk, by geography</h3><span class="card-sub">State fill = average risk score · dots = tracked districts · sized by projects on file</span></div><div class="map-stage" id="map-stage"><div class="map-legend glass-chip"><span><i class="swatch low"></i>Low</span><span><i class="swatch moderate"></i>Moderate</span><span><i class="swatch high"></i>High</span><span><i class="swatch critical"></i>Critical</span><span class="legend-sep"></span><span class="legend-note">no active projects</span></div><div class="map-tooltip glass-chip" id="map-tooltip"></div><div id="india-map" class="india-map"></div></div><p class="map-note">Coordinates are approximate district centroids for illustration. Swap <code>india-geo.js</code> and the marker table in <code>app.js</code> for surveyed geometry when it's available, or plug in Leaflet / Mapbox GL against the same <code>district</code> field used throughout this dataset.</p></div><div class="card"><div class="card-head"><h3>District detail</h3><span class="card-sub">Same data as the map, in list form — click through to the project register</span></div><div class="district-grid" id="district-grid"></div></div></section>
 
-      <!-- ============ RISK MAP ============ -->
-      <section class="view" data-view="map">
-        <div class="card map-card">
-          <div class="card-head">
-            <h3>Land acquisition risk, by geography</h3>
-            <span class="card-sub">State fill = average risk score · dots = tracked districts · sized by projects on file</span>
-          </div>
-          <div class="map-stage" id="map-stage">
-            <div class="map-legend glass-chip">
-              <span><i class="swatch low"></i>Low</span>
-              <span><i class="swatch moderate"></i>Moderate</span>
-              <span><i class="swatch high"></i>High</span>
-              <span><i class="swatch critical"></i>Critical</span>
-              <span class="legend-sep"></span>
-              <span class="legend-note">no active projects</span>
-            </div>
-            <div class="map-tooltip glass-chip" id="map-tooltip"></div>
-            <div id="india-map" class="india-map"></div>
-          </div>
-          <p class="map-note">Coordinates are approximate district centroids for illustration. Swap <code>india-geo.js</code> and the marker table in <code>app.js</code> for surveyed geometry when it's available, or plug in Leaflet / Mapbox GL against the same <code>district</code> field used throughout this dataset.</p>
-        </div>
+      <section class="view" data-view="alerts"><div class="card filter-card"><div class="filter-row" id="alert-chip-row"><button class="chip is-active" data-sev="">All</button><button class="chip" data-sev="Critical">Critical</button><button class="chip" data-sev="High">High</button><button class="chip" data-sev="Moderate">Moderate</button></div></div><div class="alert-list" id="alert-list"></div></section>
 
-        <div class="card">
-          <div class="card-head">
-            <h3>District detail</h3>
-            <span class="card-sub">Same data as the map, in list form — click through to the project register</span>
-          </div>
-          <div class="district-grid" id="district-grid"></div>
-        </div>
-      </section>
+      <section class="view" data-view="reports"><div class="grid-2"><div class="card"><div class="card-head"><h3>Average delay probability by state</h3></div><div id="state-bar-chart" class="chart-box"></div></div><div class="card"><div class="card-head"><h3>Portfolio split by risk tier</h3></div><div id="tier-donut-chart" class="chart-box"></div></div></div><div class="card"><div class="card-head"><h3>Delay-driver contribution, full detail</h3></div><div class="table-wrap"><table class="data-table" id="driver-table"><thead><tr><th>Driver</th><th>Portfolio contribution</th><th>Projects affected</th></tr></thead><tbody></tbody></table></div></div><div class="card export-card"><div><h3>Export register</h3><p class="card-sub">Writes every field in the current dataset to a CSV file, client-side.</p></div><button class="btn-primary" id="export-csv">Export CSV</button></div></section>
 
-      <!-- ============ ALERTS ============ -->
-      <section class="view" data-view="alerts">
-        <div class="card filter-card">
-          <div class="filter-row" id="alert-chip-row">
-            <button class="chip is-active" data-sev="">All</button>
-            <button class="chip" data-sev="Critical">Critical</button>
-            <button class="chip" data-sev="High">High</button>
-            <button class="chip" data-sev="Moderate">Moderate</button>
-          </div>
-        </div>
-        <div class="alert-list" id="alert-list"></div>
-      </section>
-
-      <!-- ============ REPORTS ============ -->
-      <section class="view" data-view="reports">
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-head">
-              <h3>Average delay probability by state</h3>
-            </div>
-            <div id="state-bar-chart" class="chart-box"></div>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <h3>Portfolio split by risk tier</h3>
-            </div>
-            <div id="tier-donut-chart" class="chart-box"></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-head">
-            <h3>Delay-driver contribution, full detail</h3>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table" id="driver-table">
-              <thead><tr><th>Driver</th><th>Portfolio contribution</th><th>Projects affected</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card export-card">
-          <div>
-            <h3>Export register</h3>
-            <p class="card-sub">Writes every field in the current dataset to a CSV file, client-side.</p>
-          </div>
-          <button class="btn-primary" id="export-csv">Export CSV</button>
-        </div>
-      </section>
-
-      <!-- ============ AUDIT LOG ============ -->
-      <section class="view" data-view="audit">
-        <div class="card">
-          <div class="card-head">
-            <h3>Audit trail</h3>
-            <span class="card-sub">Every role change, acknowledgement and export in this session, newest first</span>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table" id="audit-table">
-              <thead><tr><th>Time</th><th>Role</th><th>Action</th><th>Detail</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
+      <section class="view" data-view="audit"><div class="card"><div class="card-head"><h3>Audit trail</h3><span class="card-sub">Every role change, acknowledgement and export in this session, newest first</span></div><div class="table-wrap"><table class="data-table" id="audit-table"><thead><tr><th>Time</th><th>Role</th><th>Action</th><th>Detail</th></tr></thead><tbody></tbody></table></div></div></section>
     </main>
   </div>
 </div>
 
-<!-- ============ PROJECT DETAIL DRAWER ============ -->
-<div class="drawer-backdrop" id="drawer-backdrop"></div>
-<aside class="drawer" id="drawer">
-  <div class="drawer-head">
-    <div>
-      <p class="drawer-id" id="drawer-id"></p>
-      <h2 id="drawer-name"></h2>
-    </div>
-    <button class="drawer-close" id="drawer-close" aria-label="Close">
-      <svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>
-    </button>
-  </div>
-  <div class="drawer-body" id="drawer-body"></div>
-</aside>
-
-<script src="india-geo.js"></script>
-<script src="app.js"></script>
+<div class="drawer-backdrop" id="drawer-backdrop"></div><aside class="drawer" id="drawer"><div class="drawer-head"><div><p class="drawer-id" id="drawer-id"></p><h2 id="drawer-name"></h2></div><button class="drawer-close" id="drawer-close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div><div class="drawer-body" id="drawer-body"></div></aside>
+<script src="india-geo.js"></script><script src="app.js"></script>
 </body>
 </html>
