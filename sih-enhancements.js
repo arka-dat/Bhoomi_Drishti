@@ -37,6 +37,9 @@
     $$(".nav-item[data-view]").forEach((btn) => {
       btn.addEventListener("click", () => {
         setTimeout(() => replayView($('.view[data-view="' + btn.dataset.view + '"]')), 20);
+        if (btn.dataset.view === "map") {
+          requestAnimationFrame(ensureLandMap);
+        }
       });
     });
   }
@@ -120,12 +123,20 @@
     approval.addEventListener("input", update);
   }
 
-  function loadLandMap() {
-    if (window.BhoomiLandMap || document.querySelector('script[data-bhoomi-land-map]')) return;
+  // Load the map only when the user opens Risk Map. Leaflet, tiles and optional
+  // surveyed geometry are therefore kept off the critical dashboard path.
+  function ensureLandMap() {
+    if (window.BhoomiLandMap) {
+      window.BhoomiLandMap.init?.();
+      return;
+    }
+    if (document.querySelector('script[data-bhoomi-land-map]')) return;
     const script = document.createElement("script");
-    script.src = "./land-map.js?v=1";
+    script.src = "./land-map.js?v=2";
+    script.async = true;
     script.dataset.bhoomiLandMap = "true";
-    script.onload = () => window.BhoomiLandMap?.init();
+    script.onload = () => window.BhoomiLandMap?.init?.();
+    script.onerror = () => console.warn("Bhoomi Drishti: land map could not be loaded.");
     document.body.appendChild(script);
   }
 
@@ -139,7 +150,6 @@
     addBriefingCard();
     observeNavigation();
     observeDrawer();
-    loadLandMap();
     setTimeout(animateKpis, 180);
   }
 
