@@ -1,0 +1,93 @@
+/* Bhoomi Drishti UI polish — glass surfaces + restrained motion */
+:root{
+  --glass-bg:rgba(255,255,255,.72);
+  --glass-border:rgba(211,215,205,.88);
+  --glass-shadow:0 12px 32px rgba(18,36,56,.075), inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+body{overflow-x:hidden;}
+body::before{
+  content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 12% 12%,rgba(52,93,132,.07),transparent 28%),radial-gradient(circle at 86% 78%,rgba(227,162,86,.065),transparent 25%);
+  animation:bdAmbient 18s ease-in-out infinite alternate;
+}
+
+.topbar{
+  background:rgba(245,246,243,.76)!important;
+  border-bottom-color:rgba(211,215,205,.82)!important;
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  box-shadow:0 8px 28px rgba(18,36,56,.05);
+}
+.topbar-search,.role-picker select,.bell-btn{
+  background:rgba(255,255,255,.68)!important;
+  border-color:rgba(211,215,205,.9)!important;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease;
+}
+.topbar-search:focus-within{transform:translateY(-1px);box-shadow:0 0 0 4px rgba(52,93,132,.08);border-color:rgba(52,93,132,.42)!important;background:rgba(255,255,255,.92)!important;}
+.bell-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(18,36,56,.1);background:rgba(255,255,255,.92)!important;}
+
+.card,.kpi,.alert-card{
+  background:var(--glass-bg)!important;
+  border-color:var(--glass-border)!important;
+  box-shadow:var(--glass-shadow)!important;
+  backdrop-filter:blur(12px) saturate(120%);
+  -webkit-backdrop-filter:blur(12px) saturate(120%);
+  transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease,background .24s ease;
+}
+.card:hover{box-shadow:0 16px 36px rgba(18,36,56,.095),inset 0 1px 0 rgba(255,255,255,.78)!important;border-color:rgba(52,93,132,.2)!important;}
+.kpi{position:relative;overflow:hidden;}
+.kpi::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--ink-600),transparent);opacity:.3;transform:scaleX(.18);transition:transform .35s ease;}
+.kpi:hover{transform:translateY(-4px);box-shadow:0 17px 34px rgba(18,36,56,.11)!important;}
+.kpi:hover::before{transform:scaleX(1);}
+
+.nav-item{transition:background .2s ease,color .2s ease,transform .2s ease;}
+.nav-item:hover{transform:translateX(2px);background:rgba(255,255,255,.07);}
+.nav-item svg{transition:transform .2s ease;}
+.nav-item:hover svg{transform:scale(1.08);}
+.nav-item.is-active{box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 18px rgba(0,0,0,.08);}
+.brand-mark{transition:transform .35s ease,filter .35s ease;}
+.brand:hover .brand-mark{transform:rotate(-4deg) scale(1.08);filter:drop-shadow(0 0 8px rgba(227,162,86,.35));}
+
+.view.is-active{animation:bdViewIn .38s cubic-bezier(.2,.7,.2,1) both;}
+.view.is-active > .card,.view.is-active > .grid-2 > .card,.view.is-active > .kpi-grid > .kpi{animation:bdFadeUp .46s cubic-bezier(.2,.7,.2,1) both;}
+.view.is-active > .kpi-grid > .kpi:nth-child(1){animation-delay:.04s;}
+.view.is-active > .kpi-grid > .kpi:nth-child(2){animation-delay:.08s;}
+.view.is-active > .kpi-grid > .kpi:nth-child(3){animation-delay:.12s;}
+.view.is-active > .kpi-grid > .kpi:nth-child(4){animation-delay:.16s;}
+.hero{position:relative;isolation:isolate;}
+.hero::after{content:"";position:absolute;width:220px;height:220px;right:-90px;top:-115px;border-radius:50%;background:rgba(52,93,132,.075);filter:blur(12px);z-index:-1;animation:bdOrb 7s ease-in-out infinite alternate;}
+.hero-figure-num{animation:bdNumberGlow 3s ease-in-out infinite alternate;}
+
+.btn-primary,.btn-ghost,.chip{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease,background .2s ease;}
+.btn-primary:hover,.btn-ghost:hover,.chip:hover{transform:translateY(-2px);}
+.btn-primary{box-shadow:0 6px 16px rgba(23,51,80,.16);}
+.btn-primary:hover{box-shadow:0 10px 22px rgba(23,51,80,.22);filter:saturate(1.06);}
+
+.data-table tbody tr{transition:background .16s ease;}
+.data-table.sortable tbody tr:hover,#state-table tbody tr:hover{background:rgba(236,238,232,.72)!important;}
+.tier-pill{transition:transform .18s ease,box-shadow .18s ease;}
+.tier-pill:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,36,56,.08);}
+
+.glass-chip{background:rgba(255,255,255,.62)!important;border:1px solid rgba(255,255,255,.75)!important;box-shadow:0 8px 24px rgba(18,36,56,.08)!important;backdrop-filter:blur(14px) saturate(125%);-webkit-backdrop-filter:blur(14px) saturate(125%);}
+.district-tile{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 5px 14px rgba(18,36,56,.08);}
+.district-tile:hover{transform:translateY(-4px) scale(1.01);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 22px rgba(18,36,56,.14);filter:saturate(1.08);}
+
+.alert-card:hover{transform:translateX(3px);background:rgba(255,255,255,.88)!important;box-shadow:0 12px 28px rgba(18,36,56,.09)!important;}
+.drawer-backdrop{backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);}
+.drawer{background:rgba(255,255,255,.88)!important;backdrop-filter:blur(20px) saturate(130%);-webkit-backdrop-filter:blur(20px) saturate(130%);transition:transform .28s cubic-bezier(.2,.75,.2,1)!important;}
+.drawer-close{transition:transform .2s ease,background .2s ease;}
+.drawer-close:hover{transform:rotate(90deg);}
+.driver-bar-fill{transform-origin:left center;animation:bdBarGrow .8s cubic-bezier(.2,.7,.2,1) both;}
+.bell-dot.show{animation:bdPulse 1.8s ease-in-out infinite;}
+
+@keyframes bdFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bdViewIn{from{opacity:.2}to{opacity:1}}
+@keyframes bdAmbient{from{transform:translate3d(-1%,-1%,0) scale(1)}to{transform:translate3d(1%,1%,0) scale(1.04)}}
+@keyframes bdOrb{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-24px,18px,0) scale(1.12)}}
+@keyframes bdNumberGlow{from{text-shadow:0 0 0 rgba(166,61,46,0)}to{text-shadow:0 5px 24px rgba(166,61,46,.13)}}
+@keyframes bdPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.72}}
+@keyframes bdBarGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}}
+@media (max-width:760px){.topbar{padding:12px 16px;}.card{padding:17px 16px;}.hero-body{padding:18px 18px 22px;}.hero-headline{font-size:21px;}.hero-figure-num{font-size:44px;}}
