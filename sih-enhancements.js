@@ -54,18 +54,6 @@
     if (hero) animateNumber(hero, Number(hero.textContent), "", 1100);
   }
 
-  function addTopbarDemoButton() {
-    const actions = $(".topbar-actions");
-    if (!actions || $("#sih-demo-btn")) return;
-    const btn = document.createElement("button");
-    btn.id = "sih-demo-btn";
-    btn.className = "sih-demo-btn";
-    btn.innerHTML = '<span class="sih-pulse"></span><span>SIH Demo</span>';
-    btn.title = "Run the 60-second showcase flow";
-    actions.insertBefore(btn, actions.firstChild);
-    btn.addEventListener("click", runDemo);
-  }
-
   function addBriefingCard() {
     const overview = $('.view[data-view="overview"]');
     if (!overview || $("#ai-briefing")) return;
@@ -138,24 +126,7 @@
     new MutationObserver(() => setTimeout(enhanceDrawer, 30)).observe(body, { childList: true });
   }
 
-  function runDemo() {
-    const sequence = ["overview", "projects", "map", "alerts", "reports"];
-    const btn = $("#sih-demo-btn");
-    if (btn) { btn.disabled = true; btn.classList.add("is-running"); }
-    sequence.forEach((view, i) => {
-      setTimeout(() => {
-        const nav = $('.nav-item[data-view="' + view + '"]');
-        if (nav) nav.click();
-        replayView($('.view[data-view="' + view + '"]'));
-        if (i === sequence.length - 1) {
-          setTimeout(() => { if (btn) { btn.disabled = false; btn.classList.remove("is-running"); } }, 900);
-        }
-      }, i * 850);
-    });
-  }
-
   function boot() {
-    addTopbarDemoButton();
     addBriefingCard();
     observeNavigation();
     observeDrawer();
