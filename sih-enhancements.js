@@ -120,6 +120,15 @@
     approval.addEventListener("input", update);
   }
 
+  function loadLandMap() {
+    if (window.BhoomiLandMap || document.querySelector('script[data-bhoomi-land-map]')) return;
+    const script = document.createElement("script");
+    script.src = "./land-map.js?v=1";
+    script.dataset.bhoomiLandMap = "true";
+    script.onload = () => window.BhoomiLandMap?.init();
+    document.body.appendChild(script);
+  }
+
   function observeDrawer() {
     const body = $("#drawer-body");
     if (!body) return;
@@ -130,6 +139,7 @@
     addBriefingCard();
     observeNavigation();
     observeDrawer();
+    loadLandMap();
     setTimeout(animateKpis, 180);
   }
 
