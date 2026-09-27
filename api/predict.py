@@ -21,7 +21,8 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from fastapi import FastAPI, HTTPException\nfrom fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 try:
@@ -136,23 +137,36 @@ ALIASES = {
     "affectedfamilies": "families",
     "compensation": "compensationPct",
     "compensationpct": "compensationPct",
-    "compensationpercentage": "compensationPct",\n    "compensationstatus": "compensationPct",\n    "compensationpaid": "compensationPct",\n    "compensationdisbursed": "compensationPct",
+    "compensationpercentage": "compensationPct",
+    "compensationstatus": "compensationPct",
+    "compensationpaid": "compensationPct",
+    "compensationdisbursed": "compensationPct",
     "approval": "approvalPct",
     "approvalpct": "approvalPct",
-    "approvalpercentage": "approvalPct",\n    "approvalstatus": "approvalPct",\n    "approvaldelay": "approvalPct",
+    "approvalpercentage": "approvalPct",
+    "approvalstatus": "approvalPct",
+    "approvaldelay": "approvalPct",
     "rehab": "rehabPct",
     "rehabpct": "rehabPct",
     "rehabilitation": "rehabPct",
-    "rehabilitationpct": "rehabPct",\n    "rnr": "rehabPct",\n    "rnrprogress": "rehabPct",\n    "resettlement": "rehabPct",
+    "rehabilitationpct": "rehabPct",
+    "rnr": "rehabPct",
+    "rnrprogress": "rehabPct",
+    "resettlement": "rehabPct",
     "legaldisputes": "legalDisputes",
-    "disputes": "legalDisputes",\n    "legalissues": "legalDisputes",\n    "ownershipdisputes": "legalDisputes",
+    "disputes": "legalDisputes",
+    "legalissues": "legalDisputes",
+    "ownershipdisputes": "legalDisputes",
     "docscomplete": "docsComplete",
     "documentation": "docsComplete",
     "documentationcomplete": "docsComplete",
     "stakeholderscore": "stakeholderScore",
-    "stakeholder": "stakeholderScore",\n    "stakeholderresponsiveness": "stakeholderScore",\n    "stakeholderengagement": "stakeholderScore",
+    "stakeholder": "stakeholderScore",
+    "stakeholderresponsiveness": "stakeholderScore",
+    "stakeholderengagement": "stakeholderScore",
     "historicalperformance": "historicalPerformance",
-    "historicalscore": "historicalPerformance",\n    "history": "historicalPerformance",
+    "historicalscore": "historicalPerformance",
+    "history": "historicalPerformance",
     "possessionstatus": "possessionStatus",
     "possession": "possessionStatus",
     "state": "state",
