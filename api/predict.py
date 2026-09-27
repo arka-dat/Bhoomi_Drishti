@@ -44,7 +44,7 @@ app = FastAPI(title="Bhoomi Drishti Land Model API", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=os.getenv("ALLOWED_ORIGINS", "*").split(","),
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
