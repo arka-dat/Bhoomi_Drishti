@@ -75,49 +75,33 @@
     return "Low";
   }
 
-  /* ----------------------------- placeholder model ----------------------- */
-  function mockPredict(p) {
-    const compensationGap = 100 - p.compensationPct;
-    const approvalGap = 100 - p.approvalPct;
-    const rehabGap = 100 - p.rehabPct;
-    const legalPenalty = clamp(p.legalDisputes * 18, 0, 54);
-    const docPenalty = p.docsComplete ? 0 : 20;
-    const stakeholderGap = 100 - p.stakeholderScore;
+  /* ----------------------------- real model API ------------------------- */
+  const MODEL_API_BASE = window.BHOOMI_API_URL || "";
 
-    const contributions = [
-      { factor: "Pending compensation disbursement", val: 0.28 * compensationGap },
-      { factor: "Administrative approval backlog", val: 0.20 * approvalGap },
-      { factor: "Rehabilitation & resettlement delays", val: 0.16 * rehabGap },
-      { factor: "Legal disputes over land ownership", val: 0.16 * (legalPenalty / 54 * 100) },
-      { factor: "Incomplete documentation", val: 0.08 * (docPenalty / 20 * 100) },
-      { factor: "Stakeholder non-responsiveness", val: 0.12 * stakeholderGap }
-    ];
-
-    const riskScoreRaw = contributions.reduce((s, c) => s + c.val, 0);
-    const riskScore = clamp(round(riskScoreRaw), 0, 100);
-    const delayProbability = clamp(round(riskScore * 0.92 + rand(-6, 6)), 2, 98);
-    const tier = tierOf(riskScore);
-
-    const totalVal = contributions.reduce((s, c) => s + c.val, 0) || 1;
-    const drivers = contributions
-      .map((c) => ({ factor: c.factor, weight: round((c.val / totalVal) * 100) }))
-      .sort((a, b) => b.weight - a.weight);
-
-    const actions = drivers.slice(0, 3).map((d) => RECOMMENDATION_MAP[d.factor]);
-
-    const timeline = [
-      { stage: "Notification & land survey", status: p.approvalPct >= 45 ? "Completed" : p.approvalPct >= 15 ? "InProgress" : "Pending" },
-      { stage: "Compensation assessment", status: p.compensationPct >= 15 ? "Completed" : p.approvalPct >= 45 ? "InProgress" : "Pending" },
-      { stage: "Compensation disbursement", status: p.compensationPct >= 90 ? "Completed" : p.compensationPct >= 15 ? (compensationGap > 60 ? "Delayed" : "InProgress") : "Pending" },
-      { stage: "Possession handover", status: p.possessionStatus },
-      { stage: "Rehabilitation & resettlement", status: p.rehabPct >= 90 ? "Completed" : p.rehabPct > 10 ? (rehabGap > 60 ? "Delayed" : "InProgress") : "Pending" }
-    ];
-
-    return { riskScore, delayProbability, tier, drivers, actions, timeline };
+  async function predictProject(p) {
+    const response = await fetch(MODEL_API_BASE + "/api/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: p.id, state: p.state, district: p.district, type: p.type,
+        areaHa: p.areaHa, families: p.families,
+        compensationPct: p.compensationPct, approvalPct: p.approvalPct,
+        rehabPct: p.rehabPct, legalDisputes: p.legalDisputes,
+        docsComplete: p.docsComplete, stakeholderScore: p.stakeholderScore,
+        historicalPerformance: p.historicalPerformance,
+        possessionStatus: p.possessionStatus
+      })
+    });
+    if (!response.ok) throw new Error("Model API returned HTTP " + response.status);
+    const result = await response.json();
+    if (!result || typeof result.riskScore !== "number") {
+      throw new Error("Invalid prediction response from model API");
+    }
+    return result;
   }
 
   /* ----------------------------- dataset build --------------------------- */
-  function buildDataset() {
+  async function buildDataset() {
     const projects = [];
     let seq = {};
     Object.keys(STATE_DISTRICTS).forEach((state) => {
@@ -144,7 +128,7 @@
             possessionStatus: choice(["Completed", "InProgress", "Pending", "Delayed"]),
             lastUpdated: recentDate(randInt(1, 30))
           };
-          const pred = mockPredict(base);
+          const pred = await predictProject(base);
           projects.push(Object.assign(base, pred));
         }
       });
@@ -175,9 +159,9 @@
   const avg = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
 
   /* ============================== STATE =================================== */
-  const DATA = buildDataset();
-  const TREND = buildTrend(DATA);
-  const ALERTS = buildAlerts(DATA);
+  let DATA = [];
+  let TREND = [];
+  let ALERTS = [];
   const AUDIT = [
     { time: recentDate(6), role: "System", action: "Dataset loaded", detail: `${DATA.length} projects across ${Object.keys(STATE_DISTRICTS).length} states` },
     { time: recentDate(6), role: "System", action: "Platform initialised", detail: "UI shell v0.3, prediction engine pending integration" }
@@ -614,7 +598,7 @@
             </div>`).join("")}
         </div>
       </div>
-      <div class="mock-note">Risk score, drivers and recommendations shown here are placeholder output from <code>mockPredict()</code> in app.js — connect your team's model to replace them.</div>
+      <div class="mock-note">Risk score, delay probability and driver weights are produced by the integrated <code>land_model</code> service.</div>
     `;
     $("#drawer").classList.add("is-open");
     $("#drawer-backdrop").classList.add("is-open");
@@ -662,7 +646,16 @@
   }
 
   /* ============================== INIT / EVENTS ============================ */
-  function init() {
+  async function init() {
+    try {
+      DATA = await buildDataset();
+      TREND = buildTrend(DATA);
+      ALERTS = buildAlerts(DATA);
+    } catch (error) {
+      console.error("Bhoomi Drishti model integration failed:", error);
+      document.body.innerHTML = '<main style="font-family:system-ui;padding:40px;max-width:800px;margin:auto"><h1>Bhoomi Drishti</h1><p>The dashboard could not connect to the land prediction model.</p><pre style="white-space:pre-wrap;background:#f5f5f5;padding:16px;border-radius:8px">' + String(error.message || error) + '</pre><p>Start the model API and reload the page.</p></main>';
+      return;
+    }
     renderRuler();
     renderKPIs();
     renderOverviewCharts();
