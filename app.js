@@ -106,8 +106,8 @@
   async function buildDataset() {
     const projects = [];
     let seq = {};
-    Object.keys(STATE_DISTRICTS).forEach((state) => {
-      STATE_DISTRICTS[state].forEach((district) => {
+    for (const state of Object.keys(STATE_DISTRICTS)) {
+      for (const district of STATE_DISTRICTS[state]) {
         const count = randInt(2, 3);
         for (let i = 0; i < count; i++) {
           const type = choice(PROJECT_TYPES);
@@ -133,8 +133,8 @@
           const pred = await predictProject(base);
           projects.push(Object.assign(base, pred));
         }
-      });
-    });
+      }
+    }
     return projects;
   }
 
