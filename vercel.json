@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/predict.py": {
-      "includeFiles": ["land_model.zip"]
+      "includeFiles": "land_model.zip"
     }
   }
 }
