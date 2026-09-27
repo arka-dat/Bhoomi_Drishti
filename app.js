@@ -76,7 +76,9 @@
   }
 
   /* ----------------------------- real model API ------------------------- */
-  const MODEL_API_BASE = window.BHOOMI_API_URL || "";
+  const MODEL_API_BASE = window.BHOOMI_API_URL ||
+    ((location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")
+      ? "http://127.0.0.1:8000" : "");
 
   async function predictProject(p) {
     const response = await fetch(MODEL_API_BASE + "/api/predict", {
